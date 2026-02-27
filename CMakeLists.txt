@@ -1,5 +1,10 @@
-cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
-project(fenris LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.9 FATAL_ERROR)
+project(
+    fenris
+    VERSION 0.1.0
+    DESCRIPTION "Fast Encrypted Networked Robust Information Storage"
+    LANGUAGES CXX
+)
 
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 20)
@@ -91,3 +96,9 @@ if(UNIT_TESTING)
     message(STATUS "Build unit tests for the project. Tests should always be found in the tests folder\n")
     add_subdirectory(tests)
 endif()
+
+set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
+set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "${PROJECT_DESCRIPTION}")
+set(CPACK_GENERATOR "TGZ")
+include(CPack)

@@ -1,14 +1,18 @@
-name: Ubuntu Build and Test
+name: Ubuntu CI
 
 on:
   push:
-    branches: ['*']
+    branches: [main]
   pull_request:
-    branches: ['*']
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
+      actions: write
 
     steps:
       - name: Checkout repository
@@ -21,22 +25,24 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
           sudo apt update
-          sudo apt install gcc g++ cmake protobuf-compiler -y
+          sudo apt install g++ cmake protobuf-compiler libprotobuf-dev -y
 
       - name: Configure
         run: |
-          mkdir -p build
-          cd build
-          cmake -DUNIT_TESTING=ON -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=Debug ..
+          cmake -S . -B build -DUNIT_TESTING=ON -DCMAKE_CXX_COMPILER=g++ -DCMAKE_BUILD_TYPE=Debug
 
       - name: Build
-        run: |
-          cd build
-          make -j$(nproc)
+        run: cmake --build build -j"$(nproc)"
 
       - name: Test
-        run: |
-          cd build
-          ctest --verbose
+        run: ctest --test-dir build --output-on-failure --verbose
+
+      - name: Create package
+        run: cpack --config build/CPackConfig.cmake
+
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fenris-package
+          path: build/*.tar.gz
