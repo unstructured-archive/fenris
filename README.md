@@ -1,6 +1,6 @@
 # FENRIS
 
-[![Ubuntu Build and Test](https://github.com/std-fenris/fenris/actions/workflows/ubuntu.yml/badge.svg)](https://github.com/std-fenris/fenris/actions/workflows/ubuntu.yml)
+[![Ubuntu CI](https://github.com/unstructured-archive/fenris/actions/workflows/ubuntu.yml/badge.svg)](https://github.com/unstructured-archive/fenris/actions/workflows/ubuntu.yml)
 
 Fast Encrypted Networked Robust Information Storage.
 
