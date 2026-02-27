@@ -4,8 +4,8 @@
 
 - CMake
 - C++ compiler (g++)
-- `protobuf-compiler`
-- `libprotobuf-dev`
+- `protobuf-compiler` (Protobuf 3.21 exactly, matching `find_package(Protobuf 3.21 EXACT ...)`)
+- `libprotobuf-dev` (Protobuf 3.21 exactly)
 - Git submodules initialized (`git submodule update --init --recursive`)
 
 ## Local debug build
